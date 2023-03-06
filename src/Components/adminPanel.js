@@ -4,28 +4,32 @@ import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css'
-function DealerPanel() {
+
+function AdminPanel() {
   const [clickedButton, setClickedButton] = useState('');
   const navigate= useNavigate();
   const handleButtonClick = (buttonName) => {
     setClickedButton(buttonName);
-    if(buttonName=='Bike')
+    if(buttonName=='Dealer')
     {
         console.log(buttonName);
-        navigate("/bikeCreate");
+        navigate("/dealercreate");
 
     }
     else if(buttonName=='Application')
     {
-        navigate("/bikelease");
+        console.log(buttonName);
+        navigate("/lesseeApplicationShow");
     }
   };
 
   return (
+    
     <div className="container">
-      <Button variant="primary" onClick={() => handleButtonClick('Bike')}>Create Bike</Button>
-      <Button variant="primary" onClick={() => handleButtonClick('Application')}>Bike Lease Application</Button>
+      <Button variant="primary" className='me-5' onClick={() => handleButtonClick('Dealer')}>Create Dealer</Button>
+      <Button variant="primary" className='me-5' onClick={() => handleButtonClick('Application')}>Show Lease Application List</Button>
     </div>
   );
 }
-export default DealerPanel
+
+export default AdminPanel

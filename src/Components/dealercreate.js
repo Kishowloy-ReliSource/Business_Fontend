@@ -28,8 +28,6 @@ function RegistrationForm() {
             // Show an error message to the user
         });
   };
-
-
   return (
     <div className="container">
      <form onSubmit={handleSubmit}>
@@ -95,5 +93,4 @@ function RegistrationForm() {
     
   );
 }
-
 export default RegistrationForm;

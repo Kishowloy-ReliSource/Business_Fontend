@@ -9,9 +9,7 @@ function ItemList() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [brandData, setBrandData] = useState([]);
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -19,41 +17,26 @@ function ItemList() {
     fetch('http://localhost:3000/api/v1/lessees')
       .then(response => response.json())
       .then(data => setItems(data));
-
-
   }, []);
-
-
   useEffect(() => {
       fetch('http://localhost:3000/api/v1/bikes') 
       .then((response) => response.json())
       .then((data) => setBrandData(data))
       .catch((error) => console.error(error));
-
-
   }, []);
 
   const foundItem= useRef(null);
-
   function handleView(item) {
     foundItem.current = brandData.find(i => i.id === item.bike_id)
     setSelectedItem(item);
     setShow(true);
-    setShowModal(true);
-    
-    
+    setShowModal(true);    
   }
-  
 
   useEffect(()=>{
-
     console.log( foundItem.current);
   },[selectedItem])
-
   function handleApprove(item) {
-
-
-
     fetch(`http://localhost:3000/api/v1/lessees/${item.id}`, 
     { 
       method: 'PUT' ,
@@ -72,16 +55,11 @@ function ItemList() {
       });
   }
 
-  console.log(brandData);
-  console.log(items);
-
   return (
-    <>
-        
+    <>  
     <CardGroup>
       {
         items.map(item => (
-
           <Card>
           <Card.Body>
             <Card.Title>{item.lesseename}</Card.Title>
@@ -92,8 +70,7 @@ function ItemList() {
                  Down Payment: {item.downpayment}
                 <br />                
             </p>
-              
-            </Card.Text>
+          </Card.Text>
           </Card.Body>
           <Card.Footer>
                   <Button variant="primary" className='me-1' onClick={() => handleView(item)}>View</Button>
@@ -102,16 +79,9 @@ function ItemList() {
                   )}
           </Card.Footer>
         </Card>
-
         ))
-
       }
-
     </CardGroup>
-
-          
-
-
         {showModal && (
 
               <Modal show={show} onHide={handleClose}>
@@ -135,9 +105,7 @@ function ItemList() {
                 Co-Lessee Phone: {selectedItem.colessephone}
                 <br />
                 Bike: {foundItem.current.brand+' '+foundItem.current.model+' '+foundItem.current.year+' '+foundItem.current.mileage }
-                
               </p>
-
               </Modal.Body>
               <Modal.Footer>
                 <button variant="secondary" onClick={handleClose}>
@@ -145,11 +113,7 @@ function ItemList() {
                 </button>
               </Modal.Footer>
               </Modal>
-
-        )}      
-
-
-      
+        )}    
     </>
   );
 }
