@@ -1,30 +1,25 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import {  useNavigate  } from 'react-router-dom';
 
 function Login() {
     const navigate= useNavigate();
      const [Email, setEmail] = useState('');
      const [Password, setPassword] = useState('');
-     const [Loggedin, SetLoggedin]= useState(false);
-     let selectedvalue;
      const [selectedOption, setSelectedOption] = useState('0');
-
+     let selectedvalue;
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
         selectedvalue=event.target.value;
         console.log(selectedvalue);
     };
-
-    console.log(process.env);
-
     const handleSubmit = (event) => {
         event.preventDefault();
         if(selectedOption=="0")
         {
-            fetch('http://localhost:3000/api/v1/admins/login', {
+            fetch(process.env.REACT_APP_BASE_URL+'/admins/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +30,6 @@ function Login() {
                     if (response.ok) {
                         {
                             console.log(response.json());
-                            SetLoggedin(true);
                             navigate("/adminpannel");
                         }
                         
@@ -50,7 +44,7 @@ function Login() {
         }
         else if(selectedOption=="1")
         {
-            fetch('http://localhost:3000/api/v1/dealers/login', {
+            fetch(process.env.REACT_APP_BASE_URL+'/dealers/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +54,6 @@ function Login() {
                 .then((response) => {
                     if (response.ok) {
                         console.log(response.bool);
-                        SetLoggedin(true);
                         navigate("/dealerpanel");
                     } else {
                         alert("Invalid email or password");
