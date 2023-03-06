@@ -2,6 +2,8 @@ import './App.css';
 import axios from 'axios';
 import Admin from './Components/admin';
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import AdminPanel from './Components/adminPanel';
 
 const API_URL = "http://localhost:3000/api/v1/admins"
 
@@ -22,6 +24,7 @@ function App() {
     fetch(API_URL)
     .then((response)=> response.json())
     .then((data)=>{
+      //console.log(data)
       setAdmins(data)
     })
   }
@@ -33,8 +36,11 @@ function App() {
 
   return (
     <div className="App">
+
       { <Admin admins={ad}/>  }
     </div>
+
+
   );
 }
 
