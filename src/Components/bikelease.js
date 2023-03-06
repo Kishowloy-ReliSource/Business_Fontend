@@ -1,7 +1,5 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import BikeData from './bikedetails';
-
 function BikeLease(){
     const [brandData, setBrandData] = useState([]);
     const [selectedBrand, setSelectedBrand] = useState('');
@@ -19,16 +17,13 @@ function BikeLease(){
   const selectedBike= useRef(-1);
   var bike=null;
 
-
   const handleOptionChange = (event) => {
     selectedBike.current=event.target.value;
     bike=selectedBike.current;
     setSelectedBrand(event.target.value);
-   // selectedvalue=event.target.value;
     console.log(bike);
 };
   
-
         const handleSubmit = (event) => {
             if(selectedBike==null || selectedBike.current<0)
             {

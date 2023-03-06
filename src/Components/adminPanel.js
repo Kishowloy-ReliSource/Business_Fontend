@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function AdminPanel() {
   const [clickedButton, setClickedButton] = useState('');
-
   const navigate= useNavigate();
   const handleButtonClick = (buttonName) => {
     setClickedButton(buttonName);

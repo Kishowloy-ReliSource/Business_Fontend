@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css'
 function DealerPanel() {
   const [clickedButton, setClickedButton] = useState('');
-
   const navigate= useNavigate();
   const handleButtonClick = (buttonName) => {
     setClickedButton(buttonName);
@@ -29,5 +28,4 @@ function DealerPanel() {
     </div>
   );
 }
-
 export default DealerPanel

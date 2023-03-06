@@ -2,20 +2,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react';
-import AdminPanel from './adminPanel';
-import { json, useNavigate  } from 'react-router-dom';
-import { Route, Routes } from 'react-router-dom';
-import Dropdown from 'react-bootstrap/Dropdown';
+import {  useNavigate  } from 'react-router-dom';
 
 function Login() {
-
     const navigate= useNavigate();
-
      const [Email, setEmail] = useState('');
      const [Password, setPassword] = useState('');
      const [Loggedin, SetLoggedin]= useState(false);
      let selectedvalue;
-
      const [selectedOption, setSelectedOption] = useState('0');
 
     const handleOptionChange = (event) => {
@@ -24,16 +18,7 @@ function Login() {
         console.log(selectedvalue);
     };
 
-
-    //  useEffect(()=>{
-
-    //         return(
-    //             <div>
-    //                 {<AdminPanel/>}
-    //             </div>
-    //         )
-
-    //  },[Loggedin])
+    console.log(process.env);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -61,7 +46,6 @@ function Login() {
                 })
                 .catch((error) => {
                     console.error(error);
-                    // Show an error message to the user
                 });
         }
         else if(selectedOption=="1")
@@ -85,54 +69,31 @@ function Login() {
                 })
                 .catch((error) => {
                     console.error(error);
-                    // Show an error message to the user
                 });
         }
-  
     };
-
-
-
-
-
-
   return (
-
-    
     <form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
     <label>
     <Form.Label>Email address</Form.Label>:
-
     <Form.Control type="email" placeholder="Enter email" value={Email} onChange={(event) => setEmail(event.target.value)}/>
-
     </label>
     </Form.Group>
     <label>
     <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-
         <Form.Control type="password" placeholder="Password" value={Password} onChange={(event) => setPassword(event.target.value)} />
-
-      
       </Form.Group>
     </label>
-    
     <Button type="submit" variant="primary">
-        
         Log in
-        
     </Button>
-
     <select id="options" value={selectedOption} onChange={handleOptionChange}>
         <option value="0">Admin</option>
         <option value="1">Dealer</option>
       </select>
-
   </form>
-
-    
-
   );
 }
 
