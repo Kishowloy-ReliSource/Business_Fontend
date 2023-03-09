@@ -10,7 +10,7 @@ function RegistrationForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:3000/api/v1/dealers', {
+    fetch(process.env.REACT_APP_BASE_URL+'/dealers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

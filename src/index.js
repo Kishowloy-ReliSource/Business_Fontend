@@ -17,7 +17,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-
     <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/adminpannel" element={<AdminPanel/>}/>
@@ -26,12 +25,7 @@ root.render(
         <Route path='/bikecreate' element={<BikeCreate/>}/>
         <Route path='/bikelease' element={<Bikelease/>}/>
         <Route path='/lesseeApplicationShow' element={<Lesseeapplicationshow/>}/>
-        
       </Routes>
-    
-          {/* <App /> */}
-          {/* <Login /> */}
-
     </BrowserRouter>
   </React.StrictMode>
 );

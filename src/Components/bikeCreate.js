@@ -8,9 +8,8 @@ function BikeRegistrationForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const bikeData = { name: bikeName, model: bikeModel, year: bikeYear, mileage: bikeMileage };
     event.preventDefault();
-    fetch('http://localhost:3000/api/v1/bikes', {
+    fetch(process.env.REACT_APP_BASE_URL+'/v1/bikes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,7 +24,6 @@ function BikeRegistrationForm() {
         })
         .catch((error) => {
             console.error(error);
-            // Show an error message to the user
         });
   };
 

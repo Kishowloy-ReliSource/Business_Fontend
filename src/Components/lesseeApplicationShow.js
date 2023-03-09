@@ -37,7 +37,7 @@ function ItemList() {
     console.log( foundItem.current);
   },[selectedItem])
   function handleApprove(item) {
-    fetch(`http://localhost:3000/api/v1/lessees/${item.id}`, 
+    fetch(`${process.env.REACT_APP_BASE_URL}/lessees/${item.id}`, 
     { 
       method: 'PUT' ,
       headers: { 'Content-Type': 'application/json' },
