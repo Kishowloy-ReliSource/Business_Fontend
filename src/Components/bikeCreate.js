@@ -1,72 +1,125 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import { Box } from "@mui/system";
+import Select, { SeectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function BikeRegistrationForm() {
-  const [bikeName, setBikeName] = useState('');
-  const [bikeModel, setBikeModel] = useState('');
-  const [bikeYear, setBikeYear] = useState('');
-  const [bikeMileage, setBikeMileage] = useState('');
+  const initialValues = {
+    bikeName: "",
+    bikeModel: "",
+    bikeYear: "",
+    bikeMileage: "40-50",
+  };
+  const [formValues, setFormValues] = useState(initialValues);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
 
   const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      return;
+    }
     event.preventDefault();
-    event.preventDefault();
-    fetch(process.env.REACT_APP_BASE_URL+'/v1/bikes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ bikeName,bikeModel,bikeYear,bikeMileage }),
-        }).then((response) => {
-            if (response.ok) {
-                console.log(response.json());
-            } else {
-            throw new Error('Invalid email or password');
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    fetch(process.env.REACT_APP_BASE_URL + "/bikes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ formValues }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Successfully Bike created!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+          navigate("/dealerpanel");
+        } else {
+          toast.success(response.status, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+          throw new Error(response.status);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Bike Name:
-        <input
-          type="text"
-          value={bikeName}
-          onChange={(event) => setBikeName(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Bike Model:
-        <input
-          type="text"
-          value={bikeModel}
-          onChange={(event) => setBikeModel(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Bike Year:
-        <input
-          type="text"
-          value={bikeYear}
-          onChange={(event) => setBikeYear(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Bike Mileage:
-        <input
-          type="text"
-          value={bikeMileage}
-          onChange={(event) => setBikeMileage(event.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Register Bike</button>
-    </form>
+    <div>
+      <Box sx={{ m: 2 }}>
+        <Container maxWidth="sm">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Bike Name:
+              <input
+                required
+                name="bikeName"
+                type="text"
+                value={formValues.bikeName}
+                onChange={(event) => handleChange(event)}
+              />
+            </label>
+            <br />
+            <label>
+              Bike Model:
+              <input
+                required
+                type="text"
+                name="bikeModel"
+                value={formValues.bikeModel}
+                onChange={(event) => handleChange(event)}
+              />
+            </label>
+            <br />
+            <label>
+              Bike Year:
+              <input
+                required
+                type="text"
+                name="bikeYear"
+                value={formValues.bikeYear}
+                onChange={(event) => handleChange(event)}
+              />
+            </label>
+            <br />
+            <label>
+              Bike Mileage:
+              <Select
+                required
+                variant="filled"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="bikeMileage"
+                value={formValues.bikeMileage}
+                label="Mileage"
+                onChange={(event) => handleChange(event)}
+              >
+                <MenuItem value="40-50">40-50</MenuItem>
+                <MenuItem value="50-60">50-60</MenuItem>
+                <MenuItem value="60-70">60-70</MenuItem>
+              </Select>
+            </label>
+            <br />
+
+            <Button type="submit" variant="contained" sx={{ m: 2 }}>
+              Register Bike
+            </Button>
+            <ToastContainer />
+          </form>
+        </Container>
+        <ToastContainer />
+      </Box>
+    </div>
   );
 }
 
