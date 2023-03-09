@@ -29,7 +29,7 @@ function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (selectedOption == "0") {
+    if (selectedOption === "0") {
       fetch(process.env.REACT_APP_BASE_URL + "/admins/login", {
         method: "POST",
         headers: {
@@ -52,7 +52,7 @@ function Login() {
         .catch((error) => {
           console.error(error);
         });
-    } else if (selectedOption == "1") {
+    } else if (selectedOption === "1") {
       fetch(process.env.REACT_APP_BASE_URL + "/dealers/login", {
         method: "POST",
         headers: {
@@ -62,7 +62,6 @@ function Login() {
       })
         .then((response) => {
           if (response.ok) {
-            console.log(response.bool);
             navigate("/dealerpanel");
           } else {
             toast.error("Incorrect Email or Password", {

@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import CssBaseline from "@mui/material/CssBaseline";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function ItemList() {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -55,7 +56,6 @@ function ItemList() {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
         window.location.reload(false);
-        console.log("updated");
       }
     });
   }
@@ -176,7 +176,7 @@ function ItemList() {
               <br />
               Co-Lessee Phone: {selectedItem.colessephone}
               <br />
-              Bike:{" "}
+              Bike:
               {foundItem.current.brand +
                 " " +
                 foundItem.current.model +
